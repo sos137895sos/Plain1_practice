@@ -1,0 +1,23 @@
+version: "3"
+services:
+  mongo1:
+    image: mongo
+    container_name: mongo2
+    ports:
+      - 27018:27017
+    volumes:
+      - ./data/mongo2:/data/db
+
+  api:
+    container_name: api1
+    ports:
+      - 5002:5000
+    image: api1
+    build: .
+    command: bash -c "python run.py"
+    restart: always
+    # network_mode: host
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - vue.env
